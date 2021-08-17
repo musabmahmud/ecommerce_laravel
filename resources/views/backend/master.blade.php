@@ -54,13 +54,13 @@
 
       <label class="sidebar-label">Navigation</label>
       <div class="sl-sideleft-menu">
-        <a href="index.html" class="sl-menu-link active">
+        <a href="index.html" class="sl-menu-link @yield('dashboard')">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
             <span class="menu-item-label">Dashboard</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
-        <a href="#" class="sl-menu-link">
+        <a href="#" class="sl-menu-link @yield('category')">
           <div class="sl-menu-item">
             <i class="menu-item-icon ion-ios-pie-outline tx-20"></i>
             <span class="menu-item-label">Category</span>
@@ -68,8 +68,21 @@
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="{{route('category.index')}}" class="nav-link">View</a></li>
-          <li class="nav-item"><a href="{{route('category.create')}}" class="nav-link">Create New</a></li>
+          <li class="nav-item"><a href="{{route('category.index')}}" class="nav-link @yield('category-index')">View Category</a></li>
+          <li class="nav-item"><a href="{{route('category.create')}}" class="nav-link @yield('category-create')">Create Category</a></li>
+          <li class="nav-item"><a href="{{route('categorytrashed')}}" class="nav-link @yield('category-trashed')">Trashed</a></li>
+        </ul>
+        <a href="#" class="sl-menu-link @yield('brand')">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon ion-ios-pie-outline tx-20"></i>
+            <span class="menu-item-label">Brand</span>
+            <i class="menu-item-arrow fa fa-angle-down"></i>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <ul class="sl-menu-sub nav flex-column">
+          <li class="nav-item"><a href="{{route('brand.index')}}" class="nav-link @yield('brand-index')">View Brand</a></li>
+          <li class="nav-item"><a href="{{route('brand.create')}}" class="nav-link @yield('brand-create')">Create Brand</a></li>
+          <li class="nav-item"><a href="{{route('brandtrashed')}}" class="nav-link @yield('brand-trashed')">Trashed</a></li>
         </ul>
         <a href="widgets.html" class="sl-menu-link">
           <div class="sl-menu-item">

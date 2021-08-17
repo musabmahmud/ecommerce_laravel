@@ -58,7 +58,6 @@ class CategoryController extends Controller
     public function show(Category $category)
     {   
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -82,16 +81,14 @@ class CategoryController extends Controller
     public function update(Request $request,Category  $category)
     {   
         $request->validate([
-            'category_name' => ['required','min:3','unique:categories'],
+            'category_name' => 'unique:categories,category_name,' . $request->id,
             'slug' => ['required'],
         ]);
-        $cat = Category::findOrFail($request->id);
-        $cat->category_name = $request->category_name;
-        $cat->slug = Str::slug($request->slug);
-        $cat->save();
+        $category->category_name = $request->category_name;
+        $category->slug = Str::slug($request->slug);
+        $category->save();
         return back()->with('success','Category Updated Successfully');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -100,8 +97,8 @@ class CategoryController extends Controller
      */
     public function destroy(Request $request,Category  $category)
     {
-        Category::findOrFail($request->id)->delete();
-        return redirect('category')->with('success','Category Trashed Successfully');
+        $category->delete();
+        return back()->with('success','Category Trashed Successfully');
         // if($cat->subcategory->count() == 0){
         //     Category::findOrFail($category)->delete();
         //     return back()->with('success','Category Trashed Successfully');
@@ -109,5 +106,19 @@ class CategoryController extends Controller
         // else{
         //     return back()->with('error','Category has Sub Category');
         // }
+    }
+    public function categorytrashed(){
+        return view('backend.category.trashed',[
+            'categories' => Category::onlyTrashed()->paginate(10)
+        ]);
+    }
+    function restorecategory($id){
+        Category::onlyTrashed()->findOrFail($id)->restore();
+        return back()->with('success','Category Restored Successfully');
+    }
+
+    function categorydeleteforever($id){
+        Category::onlyTrashed()->findOrFail($id)->forceDelete();
+        return back()->with('success','Category Permanently Deleted Successfully');
     }
 }

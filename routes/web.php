@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\HTTP\Controllers\CategoryController;
+use App\HTTP\Controllers\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,15 @@ Route::get('/dashboard', function () {
 
 
 Route::resource('category', CategoryController::class);
+Route::get('/category-trashed',[CategoryController::class,'categorytrashed'])->name('categorytrashed');
+Route::get('/category-restore/{id}',[CategoryController::class,'restorecategory'])->name('restorecategory');
+Route::get('/category-deleteforever/{id}',[CategoryController::class,'categorydeleteforever'])->name('categorydeleteforever');
 
 
-
+Route::resource('brand', BrandController::class);
+Route::get('/brand-trashed',[BrandController::class,'brandtrashed'])->name('brandtrashed');
+Route::get('/brand-restore/{id}',[BrandController::class,'restorebrand'])->name('restorebrand');
+Route::get('/brand-deleteforever/{id}',[BrandController::class,'branddeleteforever'])->name('branddeleteforever');
 
 
 

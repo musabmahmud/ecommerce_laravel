@@ -1,5 +1,10 @@
 @extends('backend.master')
-
+@section('category')
+active show-sub
+@endsection
+@section('category-create')
+  active
+@endsection
 @section('content')
     
   <!-- Content Wrapper. Contains page content -->

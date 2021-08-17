@@ -1,6 +1,9 @@
 @extends('backend.master')
-@section('category')
+@section('brand')
 active show-sub
+@endsection
+@section('brand-create')
+  active
 @endsection
 @section('content')
     
@@ -38,28 +41,26 @@ active show-sub
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Edit Category</h3>
+                <h3 class="card-title">Add Brand</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="{{route('category.update',['category' => $category->id,])}}" method="POST">
-                {{method_field('PUT')}}
+              <form action="{{route('brand.store')}}" method="POST">
                 @csrf
-                <input type="hidden" name="id" value="{{$category->id}}">
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="category_name">Category Name</label>
-                    <input type="text" class="form-control @error('category_name') is invalid @enderror" id="category_name" name="category_name" value="{{$category->category_name}}" placeholder="Enter Your Category Name">
-                    @error('category_name')
+                    <label for="brand_name">Brand Name</label>
+                    <input type="text" class="form-control @error('brand_name') is invalid @enderror" id="brand_name" name="brand_name" value="{{old('brand_name')}}" placeholder="Enter Your Brand Name">
+                    @error('brand_name')
                         <div class=''>{{$message}}<span class="text-danger">*</span></div>
                     @enderror
                     
-                    <input type="hidden" value="{{$category->slug}}"  class="form-control @error('slug') is invalid @enderror" id="slug" name="slug" value="{{old('slug')}}">
+                    <input type="hidden" class="form-control @error('slug') is invalid @enderror" id="slug" name="slug" value="{{old('slug')}}">
                     
                   </div>
                 </div>
                 <div class="card-footer text-center">
-                  <button type="submit" class="btn btn-primary btn-lg" name="update">Update</button>
+                  <button type="submit" class="btn btn-primary btn-lg" name="submit">Submit</button>
                 </div>
               </form>
             </div>
@@ -78,7 +79,8 @@ active show-sub
 @endsection
 @section('footer_js')
 <script>
-  $('#category_name').keyup(function(){
+  
+  $('#brand_name').keyup(function(){
     $('#slug').val($(this).val().toLowerCase().split(',').join('').replace(/\s+/g, '-'));
   });
 </script>

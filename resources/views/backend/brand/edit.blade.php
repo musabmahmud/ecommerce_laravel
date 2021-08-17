@@ -1,5 +1,5 @@
 @extends('backend.master')
-@section('category')
+@section('brand')
 active show-sub
 @endsection
 @section('content')
@@ -42,19 +42,19 @@ active show-sub
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="{{route('category.update',['category' => $category->id,])}}" method="POST">
+              <form action="{{route('brand.update',['brand' => $brand->id,])}}" method="POST">
                 {{method_field('PUT')}}
                 @csrf
-                <input type="hidden" name="id" value="{{$category->id}}">
+                <input type="hidden" name="id" value="{{$brand->id}}">
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="category_name">Category Name</label>
-                    <input type="text" class="form-control @error('category_name') is invalid @enderror" id="category_name" name="category_name" value="{{$category->category_name}}" placeholder="Enter Your Category Name">
+                    <label for="brand_name">Category Name</label>
+                    <input type="text" class="form-control @error('brand_name') is invalid @enderror" id="brand_name" name="brand_name" value="{{$brand->brand_name}}" placeholder="Enter Your Brand Name">
                     @error('category_name')
                         <div class=''>{{$message}}<span class="text-danger">*</span></div>
                     @enderror
                     
-                    <input type="hidden" value="{{$category->slug}}"  class="form-control @error('slug') is invalid @enderror" id="slug" name="slug" value="{{old('slug')}}">
+                    <input type="hidden" value="{{$brand->slug}}"  class="form-control @error('slug') is invalid @enderror" id="slug" name="slug" value="{{old('slug')}}">
                     
                   </div>
                 </div>
@@ -78,7 +78,7 @@ active show-sub
 @endsection
 @section('footer_js')
 <script>
-  $('#category_name').keyup(function(){
+  $('#brand_name').keyup(function(){
     $('#slug').val($(this).val().toLowerCase().split(',').join('').replace(/\s+/g, '-'));
   });
 </script>

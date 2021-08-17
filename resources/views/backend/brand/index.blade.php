@@ -1,8 +1,8 @@
 @extends('backend.master')
-@section('category')
+@section('brand')
 active show-sub
 @endsection
-@section('category-index')
+@section('brand-index')
   active
 @endsection
 @section('content')
@@ -12,7 +12,7 @@ active show-sub
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
-            <h1>View Coupons</h1>
+            <h1>View Brands</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -41,24 +41,22 @@ active show-sub
                   <thead>
                     <tr>
                       <th style="width: 10px">No</th>
-                      <th>Category Name</th>
+                      <th>brand Name</th>
                       <th>Create Date</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                      @foreach ($categories as $key => $category)
+                      @foreach ($brands as $key => $brand)
                           <tr>
-                              <td>{{$categories->firstItem() + $key}}</td>
-                              <td>{{ $category->category_name}}</td>
-                              <td>{{ $category->created_at->format('d-M-Y h:i:s a')}} ({{$category->created_at->diffForHumans()}})</td>
-                              <td><a href="{{ route('category.edit',$category->id) }}" class="btn btn-primary">Edit</a>
-                                
-                                <form method="POST" action="{{route('category.destroy',['category' => $category->id,])}}">
+                              <td>{{$brands->firstItem() + $key}}</td>
+                              <td>{{ $brand->brand_name}}</td>
+                              <td>{{ $brand->created_at->format('d-M-Y h:i:s a')}} ({{$brand->created_at->diffForHumans()}})</td>
+                              <td><a href="{{ route('brand.edit',$brand->id) }}" class="btn btn-primary">Edit</a>
+                                <form method="POST" action="{{route('brand.destroy',['brand' => $brand->id,])}}">
                                   @method('DELETE')
                                   @csrf
-                                  <input type="hidden" name="id" value="{{$category->id}}">
-                                <button type="submit" name="submit" class="btn btn-danger">Trashed</button>
+                                  <button type="submit" name="delete" class="btn btn-danger" value="Delete" >Trashed</button>
                                 </form>
                               </td>
                           </tr>
@@ -69,7 +67,7 @@ active show-sub
                 </table>
               </div>
               <!-- /.card-body -->
-              {{ $categories->links() }}
+              {{ $brands->links() }}
             </div>
             <!-- /.card -->
           </div>

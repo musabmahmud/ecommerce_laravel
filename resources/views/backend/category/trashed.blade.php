@@ -2,7 +2,7 @@
 @section('category')
 active show-sub
 @endsection
-@section('category-index')
+@section('category-trashed')
   active
 @endsection
 @section('content')
@@ -52,14 +52,8 @@ active show-sub
                               <td>{{$categories->firstItem() + $key}}</td>
                               <td>{{ $category->category_name}}</td>
                               <td>{{ $category->created_at->format('d-M-Y h:i:s a')}} ({{$category->created_at->diffForHumans()}})</td>
-                              <td><a href="{{ route('category.edit',$category->id) }}" class="btn btn-primary">Edit</a>
-                                
-                                <form method="POST" action="{{route('category.destroy',['category' => $category->id,])}}">
-                                  @method('DELETE')
-                                  @csrf
-                                  <input type="hidden" name="id" value="{{$category->id}}">
-                                <button type="submit" name="submit" class="btn btn-danger">Trashed</button>
-                                </form>
+                              <td><a href="{{ route('restorecategory',$category->id) }}" class="btn btn-primary">Restore</a>
+                                <a href="{{ route('categorydeleteforever',$category->id) }}" class="btn btn-danger">Delete Forever</a>
                               </td>
                           </tr>
                       @endforeach

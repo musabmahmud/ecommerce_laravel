@@ -1,4 +1,7 @@
 @extends('backend.master')
+@section('dashboard')
+  active
+@endsection
 @section('content')
     
     <!-- ########## START: MAIN PANEL ########## -->
