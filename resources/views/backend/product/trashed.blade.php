@@ -50,7 +50,6 @@ active show-sub
                       <th>Offer Price</th>
                       <th>Summary</th>
                       <th>Description</th>
-                      <th>Gallery</th>
                       <th>Create Date</th>
                       <th>Action</th>
                     </tr>
@@ -68,10 +67,9 @@ active show-sub
                               <td>{{ $product->offer_price}}</td>
                               <td>{{ Str::words($product->summary, 15)}}</td>
                               <td>{{ Str::words($product->description, 15)}}</td>
-                              <td><a href="{{route('productGallery',$product->id)}}" class="btn btn-info">View Gallery</a></td>
                               <td>{{ $product->created_at->format('d-M-Y h:i:s a')}} ({{$product->created_at->diffForHumans()}})</td>
-                              <td><a href="{{ route('product.edit',$product ->id) }}" class="btn btn-primary">Edit</a>
-                              <a href="{{url('product/delete/'.$product->id)}}" class="btn btn-danger" type="submit">Trashed</a>
+                              <td><a href="{{ route('restoreProduct',$product ->id) }}" class="btn btn-primary">Restore</a>
+                              <a href="{{url('product/delete/'.$product->id)}}" class="btn btn-danger" type="submit">Delete Forever</a>
                               </td>
                           </tr>
                       @endforeach

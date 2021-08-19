@@ -84,6 +84,18 @@
           <li class="nav-item"><a href="{{route('brand.create')}}" class="nav-link @yield('brand-create')">Create Brand</a></li>
           <li class="nav-item"><a href="{{route('brandtrashed')}}" class="nav-link @yield('brand-trashed')">Trashed</a></li>
         </ul>
+        <a href="#" class="sl-menu-link @yield('product')">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon ion-ios-pie-outline tx-20"></i>
+            <span class="menu-item-label">Products</span>
+            <i class="menu-item-arrow fa fa-angle-down"></i>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <ul class="sl-menu-sub nav flex-column">
+          <li class="nav-item"><a href="{{route('product.index')}}" class="nav-link @yield('product-index')">View Product</a></li>
+          <li class="nav-item"><a href="{{route('product.create')}}" class="nav-link @yield('product-create')">Create Product</a></li>
+          <li class="nav-item"><a href="{{route('producttrashed')}}" class="nav-link @yield('product-trashed')">Trashed</a></li>
+        </ul>
         <a href="widgets.html" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>

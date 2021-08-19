@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\HTTP\Controllers\FrontendController;
 use App\HTTP\Controllers\CategoryController;
 use App\HTTP\Controllers\BrandController;
+use App\HTTP\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +17,11 @@ use App\HTTP\Controllers\BrandController;
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.index');
-});
+// Route::get('/', function () {
+//     return view('layouts.index');
+// });
+Route::get('/', [FrontendController::class,'indexView'])->name('indexView');
+
 
 Route::get('/dashboard', function () {
     return view('backend.dashboard');
@@ -36,7 +40,14 @@ Route::get('/brand-restore/{id}',[BrandController::class,'restorebrand'])->name(
 Route::get('/brand-deleteforever/{id}',[BrandController::class,'branddeleteforever'])->name('branddeleteforever');
 
 
+Route::resource('product', ProductController::class);
+Route::get('/product-trashed',[ProductController::class,'producttrashed'])->name('producttrashed');
+Route::get('/product/delete/{product_id}',[ProductController::class,'destroy'])->name('destroy');
+Route::get('/product-restore/{id}',[ProductController::class,'restoreProduct'])->name('restoreProduct');
+// Route::get('/brand-deleteforever/{id}',[BrandController::class,'branddeleteforever'])->name('branddeleteforever');
 
+Route::get('/product-gallery/{id}',[ProductController::class,'productGallery'])->name('productGallery');
+Route::get('/product-trashed/{id}',[ProductController::class,'galleryDestroy'])->name('galleryDestroy');
 
 
 
