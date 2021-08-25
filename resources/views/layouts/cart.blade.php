@@ -29,6 +29,11 @@
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             {{ session('success') }}
                         </div>
+                    @elseif (session('error'))
+                        <div class="alert alert-warning alert-dismissible">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{ session('error') }}
+                        </div>
                     @endif
                     <div class="shoping__cart__table">
                         <table>
@@ -92,8 +97,9 @@
                     <div class="shoping__continue">
                         <div class="shoping__discount">
                             <h5>Discount Codes</h5>
-                            <form action="#">
-                                <input type="text" placeholder="Enter your coupon code">
+                            <form action="{{route('couponGet')}}" method="POST">
+                                @csrf
+                                <input type="text" placeholder="Enter your coupon code" value="" name="coupon_name">
                                 <button type="submit" class="site-btn">APPLY COUPON</button>
                             </form>
                         </div>
@@ -104,7 +110,17 @@
                         <h5>Cart Total</h5>
                         <ul>
                             <li>Subtotal <span>${{cart_total()}}</span></li>
-                            <li>Total <span>$454.98</span></li>
+                            @if(isset($coupon))
+                            @php
+                                $discount = cart_total() * $coupon->coupon_percent/100;
+                                $total = cart_total() - $discount;
+                            @endphp
+                            <li>Discount ({{$coupon->coupon_percent}}%)<span>${{$discount}}</span></li>
+                                              
+                            <li>Total <span>${{$total}}</span></li>       
+                            @else
+                                <li>Total <span>${{cart_total()}}</span></li>
+                            @endif
                         </ul>
                         <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Coupon;
 use App\Models\Product;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
@@ -130,5 +131,19 @@ class CartController extends Controller
         $cart = Cart::findOrFail($id);
         $cart->delete();
         return back()->with('success', 'Cart Updated Successfully');
+    }
+
+    function couponGet(Request $request){
+        $request->validate([
+            'coupon_name' => ['required'],
+        ]);
+        $coupon = Coupon::where('coupon_name',$request->coupon_name)->whereDate('validity_date', '>=', date("y-m-d"))->first();
+        if(isset($coupon)){
+        if($coupon->coupon_person > 0){
+            return view('layouts.cart',compact('coupon'));
+        }}
+        else{
+            return redirect('cart')->with('error', 'Coupon Doesn`t Match!!');
+        }
     }
 }

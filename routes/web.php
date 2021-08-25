@@ -31,7 +31,7 @@ Route::get('/product-details/{product_slug}',[FrontendController::class,'product
 Route::resource('cart', CartController::class);
 Route::post('/cart-update',[CartController::class,'cartUpdate'])->name('cartUpdate');
 Route::get('/cart-remove/{id}',[CartController::class,'cartDestroy'])->name('cartDestroy');
-
+Route::post('/cart-coupon',[CartController::class,'couponGet'])->name('couponGet');
 
 
 

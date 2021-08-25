@@ -31,5 +31,4 @@ function cart_total(){
     }
     return $total;
 }
-
 ?>
