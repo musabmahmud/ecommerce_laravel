@@ -1,8 +1,8 @@
 @extends('backend.master')
-@section('category')
+@section('coupon')
 active show-sub
 @endsection
-@section('category-index')
+@section('coupon-index')
   active
 @endsection
 @section('content')
@@ -12,7 +12,7 @@ active show-sub
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
-            <h1>View Categories</h1>
+            <h1>View Coupons</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -41,23 +41,29 @@ active show-sub
                   <thead>
                     <tr>
                       <th style="width: 10px">No</th>
-                      <th>Category Name</th>
+                      <th>Coupon Name</th>
+                      <th>Coupon Persons</th>
+                      <th>Coupon Percentage</th>
+                      <th>Coupon Validity</th>
                       <th>Create Date</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                      @foreach ($categories as $key => $category)
+                      @foreach ($coupons as $key => $coupon)
                           <tr>
-                              <td>{{$categories->firstItem() + $key}}</td>
-                              <td>{{ $category->category_name}}</td>
-                              <td>{{ $category->created_at->format('d-M-Y h:i:s a')}} ({{$category->created_at->diffForHumans()}})</td>
-                              <td><a href="{{ route('category.edit',$category->id) }}" class="btn btn-primary">Edit</a>
+                              <td>{{$coupons->firstItem() + $key}}</td>
+                              <td>{{ $coupon->coupon_name}}</td>
+                              <td>{{ $coupon->coupon_person}}</td>
+                              <td>{{ $coupon->coupon_percent}}</td>
+                              <td>{{ $coupon->validity_date}}</td>
+                              <td>{{ $coupon->created_at->format('d-M-Y h:i:s a')}} ({{$coupon->created_at->diffForHumans()}})</td>
+                              <td><a href="{{ route('coupon.edit',$coupon->id) }}" class="btn btn-primary">Edit</a>
                                 
-                                <form method="POST" action="{{route('category.destroy',['category' => $category->id,])}}">
+                                <form method="POST" action="{{route('coupon.destroy',['coupon' => $coupon->id,])}}">
                                   @method('DELETE')
                                   @csrf
-                                  <input type="hidden" name="id" value="{{$category->id}}">
+                                  <input type="hidden" name="id" value="{{$coupon->id}}">
                                 <button type="submit" name="submit" class="btn btn-danger">Trashed</button>
                                 </form>
                               </td>
@@ -69,7 +75,7 @@ active show-sub
                 </table>
               </div>
               <!-- /.card-body -->
-              {{ $categories->links() }}
+              {{ $coupons->links() }}
             </div>
             <!-- /.card -->
           </div>

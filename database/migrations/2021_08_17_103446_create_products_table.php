@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('weight');
             $table->string('thumbnail');
             $table->integer('price');
-            $table->string('offer_price')->nullable();
+            $table->integer('offer_price');
             $table->text('summary');
             $table->text('description');
             $table->timestamps();

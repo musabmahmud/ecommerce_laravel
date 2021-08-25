@@ -1,5 +1,19 @@
 @extends('master')
+@section('cat_show')
+hero hero-normal
+@endsection
+@section('hero__item')
+    <div class="hero__item set-bg" data-setbg="{{asset('frontend')}}/img/hero/banner.jpg">
+        <div class="hero__text">
+            <span>FRUIT FRESH</span>
+            <h2>Vegetable <br />100% Organic</h2>
+            <p>Free Pickup and Delivery Available</p>
+            <a href="#" class="primary-btn">SHOP NOW</a>
+        </div>
+    </div>
+@endsection
 @section('content')
+
         <!-- Categories Section Begin -->
         <section class="categories">
             <div class="container">
@@ -8,7 +22,7 @@
                         @foreach ($categories_item as $cat_item)
                         <div class="col-lg-3">
                             <div class="categories__item set-bg" data-setbg="{{asset('frontend/img/product/'.$cat_item->thumbnail)}}">
-                                <h5><a href="#">{{$cat_item->product_name}}</a></h5>
+                                <h5><a href="{{route('productDetails',$cat_item->product_slug)}}">{{$cat_item->product_name}}</a></h5>
                             </div>
                         </div>
                         @endforeach
@@ -53,8 +67,13 @@
                                     </ul>
                                 </div>
                                 <div class="featured__item__text">
-                                    <h6><a href="#">{{$cat_item->product_name}}</a></h6>
-                                    <h5>${{$cat_item->price}}</h5>
+                                    <h6><a href="{{route('productDetails',$feaitem->product_slug)}}">{{$feaitem->product_name}}</a></h6>
+                                    <h5>@if ($feaitem->offer_price === null)
+                                            ${{$feaitem->price}}
+                                        @else
+                                            ${{$feaitem->offer_price}}
+                                        @endif
+                                    </h5>
                                 </div>
                             </div>
                         </div>
@@ -93,62 +112,23 @@
                             <h4>Latest Products</h4>
                             <div class="latest-product__slider owl-carousel">
                                 <div class="latest-prdouct__slider__item">
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="{{asset('frontend')}}/img/latest-product/lp-1.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="{{asset('frontend')}}/img/latest-product/lp-2.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="{{asset('frontend')}}/img/latest-product/lp-3.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="latest-prdouct__slider__item">
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="{{asset('frontend')}}/img/latest-product/lp-1.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="{{asset('frontend')}}/img/latest-product/lp-2.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="{{asset('frontend')}}/img/latest-product/lp-3.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
+                                    @foreach ($latest_product as $latestProduct)
+                                        <a href="{{route('productDetails',$latestProduct->product_slug)}}" class="latest-product__item">
+                                            <div class="latest-product__item__pic">
+                                                <img src="{{asset('frontend/img/product/'.$latestProduct->thumbnail)}}" alt="{{$latestProduct->product_name}}">
+                                            </div>
+                                            <div class="latest-product__item__text">
+                                                <h6>{{$latestProduct->product_name}}</h6>
+                                                <span>
+                                                    @if ($latestProduct->offer_price === null)
+                                                        ${{$latestProduct->price}}
+                                                    @else
+                                                        ${{$latestProduct->offer_price}}
+                                                    @endif
+                                                </span>
+                                            </div>
+                                        </a>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

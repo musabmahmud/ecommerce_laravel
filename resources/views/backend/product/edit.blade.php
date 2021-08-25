@@ -45,7 +45,7 @@ active show-sub
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="{{route('product.update',['product' => $product->id,])}}" method="POST">
+              <form action="{{route('product.update',['product' => $product->id,])}}" enctype="multipart/form-data" method="POST">
                 {{method_field('PUT')}}
                 @csrf
                 <div class="card-body">
@@ -129,8 +129,7 @@ active show-sub
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="thumbnail">Thumbnail(one image): <span class="tx-danger">*</span></label>
-                        <input type="file" class="form-control @error('thumbnail') is invalid @enderror" value="{{old('quantity')}}" name="thumbnail" onchange="document.getElementById('image_id').src= window.URL.createObjectURL(this.files[0])"
-                        id="thumbnail">
+                        <input type="file" class="form-control @error('thumbnail') is invalid @enderror" name="thumbnail" id="thumbnail" onchange="document.getElementById('image_id').src= window.URL.createObjectURL(this.files[0])">
                         @error('thumbnail')
                             <div class='text-danger'>{{$message}}<span class="text-danger">*</span></div>
                         @enderror

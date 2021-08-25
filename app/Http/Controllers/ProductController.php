@@ -56,6 +56,7 @@ class ProductController extends Controller
             'gallery.*' => ['mimes:jpeg,jpg,png,gif|required'],
 
             'price' => ['required'],
+            'offer_price' => ['required'],
             'summary' => ['required', 'max:500'],
             'description' => ['required'],
         ]);
@@ -135,8 +136,8 @@ class ProductController extends Controller
             'brand_id' => ['required'],
             'quantity' => ['required'],
             'weight' => ['required'],
-
             'price' => ['required'],
+            'offer_price' => ['required'],
             'summary' => ['required', 'max:500'],
             'description' => ['required'],
         ]);
@@ -148,21 +149,11 @@ class ProductController extends Controller
         $product->quantity = $request->quantity;
         $product->weight = $request->weight;
         $product->price = $request->price;
+        $product->offer_price = $request->offer_price;
         $product->summary = $request->summary;
         $product->description = $request->description;
 
-
-        if ($request->offer_price) {
-            $product->offer_price = $request->offer_price;
-        } else {
-            $product->offer_price = 'NULL';
-        }
-
         if ($request->hasFile('thumbnail')) {
-
-            $request->validate([
-                'thumbnail' => 'required | mimes:jpeg,jpg,png | max:1000',
-            ]);
 
             $image = $request->file('thumbnail');
             $ext = Str::random(5) . '-' . $request->product_slug . '.' . $image->getClientOriginalExtension();

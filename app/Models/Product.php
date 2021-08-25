@@ -18,4 +18,7 @@ class Product extends Model
     function gallery(){
         return $this->hasMany(Gallery::class,'product_id');
     }
+    function cart(){
+        return $this->hasMany(Cart::class,'product_id');
+    }
 }
